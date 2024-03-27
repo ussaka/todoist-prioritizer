@@ -4,8 +4,32 @@ import configparser
 import logging
 import datetime
 import sys
+import requests
 from time import sleep
 from CommandLineParser import CommandLineParser
+from CommandLineParser import ini_path
+
+current_version = "v1.0.0"
+
+
+def check_for_updates():
+    """
+    Check for updates in the repository releases
+    """
+    repo_url = "https://api.github.com/repos/ussaka/todoist-prioritizer/releases"
+    response = requests.get(repo_url)
+    if response.status_code == 200:
+        releases = response.json()
+        latest_release = releases[0]
+        latest_version = latest_release["tag_name"]
+        if latest_version > current_version:
+            logging.info(f"New version available: {latest_version}")
+            logging.info(f"Changelog: {latest_release['body']}")
+            logging.info(f"Download link: {latest_release['html_url']}\n")
+    else:
+        logging.error(
+            "Update checker failed, failed to fetch releases from the repository"
+        )
 
 
 def get_tasks(filters: str) -> list:
@@ -63,10 +87,11 @@ def prioritize_tasks(tasks: list, p: int, max_size: int) -> list:
 if __name__ == "__main__":
     # Create the command line parser
     cmd = CommandLineParser()
+    cmd.user_input()
 
     # Create the config parser
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read(ini_path)
 
     # API token must be set
     try:
@@ -80,6 +105,11 @@ if __name__ == "__main__":
 
     run_hour = int(config.get("USER", "run_hour"))
     run_minute = int(config.get("USER", "run_minute"))
+
+    logging.info(f"todoist-prioritizer {current_version}\n")
+    check_for_updates()
+    logging.info("todoist-prioritizer is running...")
+
     while True:
         current_time = datetime.datetime.now().time()
         run_time = datetime.time(run_hour, run_minute)

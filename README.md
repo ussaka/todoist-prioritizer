@@ -28,3 +28,12 @@ Reset to default settings
 ```bash
 python todoist-prioritizer.py -r
 ```
+# Installation
+Pre-compiled .exe binaries are available in the [releases] for Windows users.
+
+## PyInstaller
+Users can compile the script to an executable using PyInstaller
+### Windows
+```bash
+pyinstaller src/todoist-prioritizer.py --icon=docs/priority.ico -c --onefile --add-data src/config.ini:.
+```

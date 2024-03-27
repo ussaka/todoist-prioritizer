@@ -3,6 +3,12 @@ import logging
 import keyring
 import configparser
 import sys
+import os
+
+# Get the directory of the script file
+script_dir = os.path.dirname(os.path.realpath(__file__))
+# Join the script directory with the relative path to the ini file
+ini_path = os.path.join(script_dir, "config.ini")
 
 
 def make_wide(formatter, w: int = 120, h: int = 36):
@@ -40,7 +46,7 @@ class CommandLineParser:
             formatter_class=make_wide(argparse.HelpFormatter, w=120, h=60)
         )
         self.__setup_args__()
-        self.__parse_args__()
+        self.parse_args()
 
     def __setup_args__(self):
         """
@@ -83,15 +89,18 @@ class CommandLineParser:
             help="Enable debug logging level",
         )
 
-    def __parse_args__(self):
+    def parse_args(self, input: bool = False):
         """
         Parses the command line arguments and stores them in self.args
+
+        @param input: If True use user inputted args, else use command line args
         """
         # Create the config parser
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config.read(ini_path)
 
-        self.args = self.parser.parse_args()
+        if not input:
+            self.args = self.parser.parse_args()
 
         logging.basicConfig(
             level=logging.DEBUG if self.args.debug else logging.INFO,
@@ -104,23 +113,23 @@ class CommandLineParser:
             keyring.set_password("system", "todoist-api-token", self.args.api)
         if self.args.p1 is not None:
             config.set("USER", "p1_tasks", str(self.args.p1))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
         if self.args.p2 is not None:
             config.set("USER", "p2_tasks", str(self.args.p2))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
         if self.args.p3 is not None:
             config.set("USER", "p3_tasks", str(self.args.p3))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
         if self.args.hh is not None:
             config.set("USER", "run_hour", str(self.args.hh))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
         if self.args.mm is not None:
             config.set("USER", "run_minute", str(self.args.mm))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
         if self.args.reset:
             config.set("USER", "p1_tasks", config.get("DEFAULT", "p1_tasks"))
@@ -128,7 +137,30 @@ class CommandLineParser:
             config.set("USER", "p3_tasks", config.get("DEFAULT", "p3_tasks"))
             config.set("USER", "run_hour", config.get("DEFAULT", "run_hour"))
             config.set("USER", "run_minute", config.get("DEFAULT", "run_minute"))
-            with open("config.ini", "w") as configfile:
+            with open(ini_path, "w") as configfile:
                 config.write(configfile)
             logging.info("Reset")
             sys.exit(0)
+
+    def user_input(self):
+        """
+        Prompts the user for input if no command line arguments are provided
+        """
+        if self.args.api is None:
+            arg = input("Configure? (y/n): ")
+            if arg == "y":
+                self.args.reset = input("Reset? (y/n): ")
+                if self.args.reset == "y":
+                    self.args.reset = True
+                else:
+                    self.args.reset = False
+                    self.args.api = input("Enter API token: ")
+                    self.args.p1 = input("Enter P1 tasks: ")
+                    self.args.p2 = input("Enter P2 tasks: ")
+                    self.args.p3 = input("Enter P3 tasks: ")
+                    self.args.hh = input("Enter run hour: ")
+                    self.args.mm = input("Enter run minute: ")
+                    self.args.debug = input("Debug logging? (y/n): ")
+                    if self.args.debug == "y":
+                        self.args.debug = True
+                self.parse_args(True)
