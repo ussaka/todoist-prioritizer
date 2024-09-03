@@ -5,6 +5,7 @@
   [![wakatime](https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg)](https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg)
   [![Unit tests](https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml/badge.svg)](https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml)
   [![CodeQL](https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml/badge.svg)](https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml)
+  [![codecov](https://codecov.io/github/ussaka/todoist-prioritizer/graph/badge.svg?token=YADU7HSBAO)](https://codecov.io/github/ussaka/todoist-prioritizer)
   <p>
       <b>
           📑 <a href="https://ussaka.github.io/todoist-prioritizer/">Documentation</a>

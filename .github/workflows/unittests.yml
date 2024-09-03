@@ -34,6 +34,7 @@ jobs:
         run: |
           pip install pytest pytest-cov
           pytest ./test/todoist_prioritizer_test.py --doctest-modules --junitxml=junit/test-results.xml
+          pytest --cov --junitxml=junit.xml
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
@@ -43,4 +44,14 @@ jobs:
             junit/**/*.xml
             junit/**/*.trx
             junit/**/*.json
-            
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
