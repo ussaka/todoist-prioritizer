@@ -75,15 +75,19 @@ def sort_tasks_date(tasks: list) -> list:
 
 def convert_priority(priority):
     """!
-    Convert API priority (4 is hightest) to UI priority (1 is highest)
+    Convert API priority (4 is highest) to UI priority (1 is highest)
 
     @param priority The priority to convert
 
     @return The converted priority
+
+    @raises ValueError: If the priority is not between 1 and 4
     """
+    if priority not in {1, 2, 3, 4}:
+        raise ValueError(f"Invalid priority: {priority}. Must be between 1 and 4.")
 
     priority_map = {1: 4, 2: 3, 3: 2, 4: 1}
-    return priority_map.get(priority, priority)
+    return priority_map[priority]
 
 
 def prioritize_tasks(tasks: list, p: int, max_size: int) -> list:
