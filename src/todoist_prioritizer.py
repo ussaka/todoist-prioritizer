@@ -269,6 +269,10 @@ if __name__ == "__main__":
             )
 
             check_for_updates()
+            check_for_updates()
+            check_for_updates()
+            sleep(25)
+            sleep(25)
             sleep(60)  # Run only once
         else:
             sleep(60)
