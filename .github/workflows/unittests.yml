@@ -34,7 +34,7 @@ jobs:
         run: |
           pip install pytest pytest-cov
           pytest ./test/todoist_prioritizer_test.py --doctest-modules --junitxml=junit/test-results.xml
-          pytest --cov --junitxml=junit.xml
+          pytest --cov --cov-report=xml --junitxml=junit.xml
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
