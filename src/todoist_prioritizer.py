@@ -46,16 +46,19 @@ def get_tasks(filters: str) -> list:
     @return The list of tasks from the Todoist API
     """
 
-    tasks = []
+    tasks_lists = []
+    tasks_list = []
     try:
-        tasks = api_token.get_tasks(filter=filters)
+        tasks_lists = api_token.filter_tasks(query=filters)
     except Exception as error:
         logging.error(error)
         sys.exit(1)
     logging.debug(f"({filters}) filtered tasks:\n")
-    for task in tasks:
-        logging.debug(f"{task.content}")
-    return tasks
+    for task_list in tasks_lists:
+        for task in task_list:
+            tasks_list.append(task)
+            logging.debug(f"{task.content}")
+    return tasks_list
 
 
 def sort_tasks_date(tasks: list) -> list:
@@ -113,6 +116,39 @@ def prioritize_tasks(tasks: list, p: int, max_size: int) -> list:
     return tasks
 
 
+def move_task_to_a_parent(task: object, parent_id: str) -> None:
+    """!
+    Move a task to today
+
+    @param task The task to move
+    """
+
+    task_duration = task.duration
+    if task_duration == None:
+        task_duration = 60
+    else:
+        task_duration = task.duration.amount
+    retval = api_token.update_task(
+        task_id=task.id,
+        due_string="today at 18:00",
+        duration=task_duration,
+        duration_unit="minute",
+    )
+    if retval is None:
+        logging.error(f"Failed to move {task.content} to today")
+        sys.exit(1)
+
+    try:
+        api_token.move_task(
+            task_id=task.id,
+            project_id=parent_id,
+        )
+        logging.info(f"Moved {task.content} to today\n")
+    except Exception as error:
+        logging.error(error)
+        sys.exit(1)
+
+
 def fill_today_tasks(
     tasks_pool: list, task_reschedule_time: datetime.datetime
 ) -> datetime.datetime:
@@ -132,6 +168,7 @@ def fill_today_tasks(
 
     # Get current number of tasks with no duration and total duration
     for task in today_tasks:
+        logging.debug(f"Task: {task}")
         if task.duration == None:
             no_duration_tasks_pcs += 1
         elif task.duration.amount > 0:
@@ -143,6 +180,7 @@ def fill_today_tasks(
     for task in tasks_pool:
         # Tasks with no duration
         if no_duration_tasks_pcs < usr_no_duration_tasks_pcs:
+            logging.debug(f"Task: {task}")
             if task.duration == None:
                 no_duration_tasks_pcs += 1
                 due_str = f"today at {task_reschedule_time.hour:02}:{task_reschedule_time.minute:02}"
@@ -272,7 +310,12 @@ if __name__ == "__main__":
                 p4_tasks, reschedule_starting_time
             )
 
+            # Move the first P1 task to a parent
+            parent_id = config.get("USER", "parent_id")
+            if parent_id != "None":
+                move_task_to_a_parent(p1_tasks[0], parent_id)
+
             check_for_updates()
             sleep(60)  # Run only once
         else:
-            sleep(60)
+            sleep(5)
