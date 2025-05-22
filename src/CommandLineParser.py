@@ -89,6 +89,13 @@ class CommandLineParser:
             help="Maximum tasks duration in minutes to prioritize for today",
         )
         self.parser.add_argument(
+            "-p",
+            "--parent",
+            type=str,
+            metavar="PARENT_PROJECT_ID",
+            help="If set move oldest P1 task to this parent project",
+        )
+        self.parser.add_argument(
             "-r",
             "--reset",
             action="store_true",
@@ -151,6 +158,10 @@ class CommandLineParser:
             config.set("USER", "task_duration", str(self.args.du))
             with open(ini_path, "w") as configfile:
                 config.write(configfile)
+        if self.args.parent is not None:
+            config.set("USER", "parent_id", str(self.args.parent))
+            with open(ini_path, "w") as configfile:
+                config.write(configfile)
         if self.args.reset:
             config.set("USER", "p1_tasks", config.get("DEFAULT", "p1_tasks"))
             config.set("USER", "p2_tasks", config.get("DEFAULT", "p2_tasks"))
@@ -190,6 +201,9 @@ class CommandLineParser:
                     self.args.du = input(
                         "Enter maximum duration for tasks to prioritize for today view: "
                     )
+                    arg = input("Move oldest P1 task to new parent project? (y/n): ")
+                    if arg == "y":
+                        self.args.p = input("Enter parent project id: ")
                     self.args.debug = input("Debug logging? (y/n): ")
                     if self.args.debug == "y":
                         self.args.debug = True
