@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 import sys
 import os
+
 src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.insert(0, src_dir)
 
@@ -182,11 +183,11 @@ class TodoistPrioritizerHelperFunctionsTest(unittest.TestCase):
         ]
 
         with patch("todoist_prioritizer.api_token") as mock_api_token:
-            mock_api_token.get_tasks.return_value = expected_tasks
+            mock_api_token.filter_tasks.return_value = [expected_tasks]
             tasks = get_tasks("P1")
             self.assertTrue(all(task.priority == desired_priority for task in tasks))
             self.assertEqual(tasks, expected_tasks)
-            mock_api_token.get_tasks.assert_called_with(filter="P1")
+            mock_api_token.filter_tasks.assert_called_with(query="P1")
 
     def test_sort_tasks_date(self):
         sorted_tasks = sort_tasks_date(self.tasks)
