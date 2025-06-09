@@ -24,6 +24,7 @@ The todoist-prioritizer is a Python script designed to manage Todoist tasks prio
 - Specify number of tasks with no duration and max. duration for tasks to fill for today view
 - The script will fill tasks for today view until user set requirements are met
 - The script runs once a day at a time specified by the user
+- If the user sets a parent project id, the script will move the oldest P1 task to that project
 
 # Usage
 If the script is run without arguments, it will prompt for user input. This is true for just executing .exe too. Only Todoist api token needs to be set, the user can run other settings with default values. The api token is available at [integrations/developer](https://todoist.com/prefs/integrations).
@@ -32,20 +33,21 @@ Available commands
 ```bash
 todoist-prioritizer --help
 usage: todoist_prioritizer.py [-h] [-a API_TOKEN] [-p1 P1_SIZE] [-p2 P2_SIZE] [-p3 P3_SIZE] [-hh RUN_HOUR]
-                              [-mm RUN_MINUTE] [-nd TASKS_SIZE] [-du DURATION_MIN] [-r] [-d]
+                              [-mm RUN_MINUTE] [-nd TASKS_SIZE] [-du DURATION_MIN] [-p PARENT_PROJECT_ID] [-r] [-d]
 
 options:
-  -h, --help                     show this help message and exit
-  -a API_TOKEN, --api API_TOKEN  Set api token
-  -p1 P1_SIZE                    Maximum number of P1 tasks
-  -p2 P2_SIZE                    Maximum number of P2 tasks
-  -p3 P3_SIZE                    Maximum number of P3 tasks
-  -hh RUN_HOUR                   The hour to run the script, 24 hour format
-  -mm RUN_MINUTE                 The minute to run the script, 24 hour format
-  -nd TASKS_SIZE                 Number of tasks with no duration to prioritize for today
-  -du DURATION_MIN               Maximum tasks duration in minutes to prioritize for today
-  -r, --reset                    Reset configuration to default values
-  -d, --debug                    Enable debug logging level
+  -h, --help                                        show this help message and exit
+  -a API_TOKEN, --api API_TOKEN                     Set api token
+  -p1 P1_SIZE                                       Maximum number of P1 tasks
+  -p2 P2_SIZE                                       Maximum number of P2 tasks
+  -p3 P3_SIZE                                       Maximum number of P3 tasks
+  -hh RUN_HOUR                                      The hour to run the script, 24 hour format
+  -mm RUN_MINUTE                                    The minute to run the script, 24 hour format
+  -nd TASKS_SIZE                                    Number of tasks with no duration to prioritize for today
+  -du DURATION_MIN                                  Maximum tasks duration in minutes to prioritize for today
+  -p PARENT_PROJECT_ID, --parent PARENT_PROJECT_ID  If set move oldest P1 task to this parent project
+  -r, --reset                                       Reset configuration to default values
+  -d, --debug                                       Enable debug logging level
 ```
 
 Example usage  
