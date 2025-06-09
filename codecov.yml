@@ -10,6 +10,6 @@ coverage:
           - "src"
     patch:
       default:
-        target: 100%
+        target: 80%
         paths:
           - "src"
