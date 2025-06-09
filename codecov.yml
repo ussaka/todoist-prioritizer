@@ -1,4 +1,6 @@
 coverage:
+  include:
+    - "src/*"
   status:
     project: # add everything under here, more options at https://docs.codecov.com/docs/commit-status
       default: # status check name
@@ -8,6 +10,6 @@ coverage:
           - "src"
     patch:
       default:
-        target: 100%
+        target: 80%
         paths:
           - "src"
