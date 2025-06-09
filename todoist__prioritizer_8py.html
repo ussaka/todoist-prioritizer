@@ -87,7 +87,7 @@
                         <td id="projectalign" style="padding-left: 0.5em;">
                             <div id="projectname">todoist-prioritizer
                                 &#160;<span
-                                    id="projectnumber">v1.1.1</span>
+                                    id="projectnumber">v1.2.0</span>
                             </div>
                             <div id="projectbrief">Automatically prioritize tasks in Todoist</div>
                         </td>
@@ -169,7 +169,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a5ee1d86d5e6c773b6786cbc722bc9a49"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a5ee1d86d5e6c773b6786cbc722bc9a49">check_for_updates</a> ()</td></tr>
 <tr class="separator:a5ee1d86d5e6c773b6786cbc722bc9a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba8d3c5e4667caa550d855f46acfa3ce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#aba8d3c5e4667caa550d855f46acfa3ce">convert_priority</a> (priority)</td></tr>
-<tr class="memdesc:aba8d3c5e4667caa550d855f46acfa3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert API priority (4 is hightest) to UI priority (1 is highest)  <br /></td></tr>
+<tr class="memdesc:aba8d3c5e4667caa550d855f46acfa3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert API priority (4 is highest) to UI priority (1 is highest)  <br /></td></tr>
 <tr class="separator:aba8d3c5e4667caa550d855f46acfa3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6edbfc0fe735ae33737401929eff4bdb"><td class="memItemLeft" align="right" valign="top">datetime.datetime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a6edbfc0fe735ae33737401929eff4bdb">fill_today_tasks</a> (list tasks_pool, datetime.datetime task_reschedule_time)</td></tr>
 <tr class="memdesc:a6edbfc0fe735ae33737401929eff4bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the tasks for today based on the user's configuration.  <br /></td></tr>
@@ -177,6 +177,9 @@ Functions</h2></td></tr>
 <tr class="memitem:afc6db5a4409aae2e6e4c788d7647adfd"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#afc6db5a4409aae2e6e4c788d7647adfd">get_tasks</a> (str filters)</td></tr>
 <tr class="memdesc:afc6db5a4409aae2e6e4c788d7647adfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get filtered tasks from the Todoist API.  <br /></td></tr>
 <tr class="separator:afc6db5a4409aae2e6e4c788d7647adfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa86eb4c81b328d36ed907a18f25f9e04"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#aa86eb4c81b328d36ed907a18f25f9e04">move_task_to_a_parent</a> (object task, str parent_id)</td></tr>
+<tr class="memdesc:aa86eb4c81b328d36ed907a18f25f9e04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move a task to today.  <br /></td></tr>
+<tr class="separator:aa86eb4c81b328d36ed907a18f25f9e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae024bdbc62ffd6e5fdab4e66603fd6f5"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#ae024bdbc62ffd6e5fdab4e66603fd6f5">prioritize_tasks</a> (list tasks, int p, int max_size)</td></tr>
 <tr class="memdesc:ae024bdbc62ffd6e5fdab4e66603fd6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prioritize the tasks.  <br /></td></tr>
 <tr class="separator:ae024bdbc62ffd6e5fdab4e66603fd6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,7 +197,7 @@ Variables</h2></td></tr>
 <tr class="separator:aad6f2a5836f0daf180ac5ade53d54f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9e3a83acc37a0bf7ca9abfe0c24631"><td class="memItemLeft" align="right" valign="top">datetime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#afd9e3a83acc37a0bf7ca9abfe0c24631">current_time</a> = datetime.datetime.now().time()</td></tr>
 <tr class="separator:afd9e3a83acc37a0bf7ca9abfe0c24631"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad38571220dc61aaa968f318e13042504"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#ad38571220dc61aaa968f318e13042504">current_version</a> = &quot;v1.1.1&quot;</td></tr>
+<tr class="memitem:ad38571220dc61aaa968f318e13042504"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#ad38571220dc61aaa968f318e13042504">current_version</a> = &quot;v1.2.0&quot;</td></tr>
 <tr class="separator:ad38571220dc61aaa968f318e13042504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0544c3fe466e421738dae463968b70ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a0544c3fe466e421738dae463968b70ba">else</a> :</td></tr>
 <tr class="separator:a0544c3fe466e421738dae463968b70ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,6 +221,8 @@ Variables</h2></td></tr>
 <tr class="separator:a67c19f73ab151ec5ab5f1c6e5e487985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607e95528915a6fd5cfb2ed8b880ef22"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a607e95528915a6fd5cfb2ed8b880ef22">p4_tasks</a> = sort_tasks_date(get_tasks(&quot;P4&quot;))</td></tr>
 <tr class="separator:a607e95528915a6fd5cfb2ed8b880ef22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159885da0fb832d44002b6cdc2c3442f"><td class="memItemLeft" align="right" valign="top">configparser&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a159885da0fb832d44002b6cdc2c3442f">parent_id</a> = config.get(&quot;USER&quot;, &quot;parent_id&quot;)</td></tr>
+<tr class="separator:a159885da0fb832d44002b6cdc2c3442f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fa8b8d88c00d0e06d8dc633e2aa491e"><td class="memItemLeft" align="right" valign="top">datetime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a1fa8b8d88c00d0e06d8dc633e2aa491e">reschedule_starting_time</a> = datetime.datetime.now()</td></tr>
 <tr class="separator:a1fa8b8d88c00d0e06d8dc633e2aa491e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c85f179711baef6fd4492185ff3ae60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetodoist__prioritizer.html#a4c85f179711baef6fd4492185ff3ae60">run_hour</a> = int(config.get(&quot;USER&quot;, &quot;run_hour&quot;))</td></tr>

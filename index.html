@@ -87,7 +87,7 @@
                         <td id="projectalign" style="padding-left: 0.5em;">
                             <div id="projectname">todoist-prioritizer
                                 &#160;<span
-                                    id="projectnumber">v1.1.1</span>
+                                    id="projectnumber">v1.2.0</span>
                             </div>
                             <div id="projectbrief">Automatically prioritize tasks in Todoist</div>
                         </td>
@@ -156,7 +156,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> </p><div class="readme-header" align="center"> <img src="https://github.com/ussaka/todoist-prioritizer/blob/main/docs/priority.svg" alt="Description of the image" style="pointer-events: none;" width="150" height="150" class="inline"/> <h1>todoist-prioritizer</h1>
 </div><div class="readme-header" align="center"> <br  />
-</div><div class="readme-header" align="center"> <a href="https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg"><img src="https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg" alt="wakatime" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml"><img src="https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml/badge.svg" alt="Unit tests" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml"><img src="https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml/badge.svg" alt="CodeQL" style="pointer-events: none;" class="inline"/></a> </div><div class="readme-header" align="center"> <b> 📑 <a href="https://ussaka.github.io/todoist-prioritizer/">Documentation</a> </b> </div><div class="readme-header" align="center"> <br  />
+</div><div class="readme-header" align="center"> <a href="https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg"><img src="https://wakatime.com/badge/user/41c5948e-4207-46a3-bcb4-2f355d15e4ac/project/018e4894-c1f1-49df-b86c-1d01599a769f.svg" alt="wakatime" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml"><img src="https://github.com/ussaka/todoist-prioritizer/actions/workflows/unittests.yml/badge.svg" alt="Unit tests" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml"><img src="https://github.com/ussaka/todoist-prioritizer/actions/workflows/codeql.yml/badge.svg" alt="CodeQL" style="pointer-events: none;" class="inline"/></a> <a href="https://codecov.io/github/ussaka/todoist-prioritizer"><img src="https://codecov.io/github/ussaka/todoist-prioritizer/graph/badge.svg?token=YADU7HSBAO" alt="codecov" style="pointer-events: none;" class="inline"/></a> </div><div class="readme-header" align="center"> <b> 📑 <a href="https://ussaka.github.io/todoist-prioritizer/">Documentation</a> </b> </div><div class="readme-header" align="center"> <br  />
  <h3>Automatic <a href="https://todoist.com">Todoist</a> tasks prioritizer</h3>
 </div><div class="readme-header" align="center"> </div><h1><a class="anchor" id="autotoc_md0"></a>
 Description</h1>
@@ -172,26 +172,28 @@ Features</h3>
 <li>Specify number of tasks with no duration and max. duration for tasks to fill for today view</li>
 <li>The script will fill tasks for today view until user set requirements are met</li>
 <li>The script runs once a day at a time specified by the user</li>
+<li>If the user sets a parent project id, the script will move the oldest P1 task to that project</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Usage</h1>
 <p>If the script is run without arguments, it will prompt for user input. This is true for just executing .exe too. Only Todoist api token needs to be set, the user can run other settings with default values. The api token is available at <a href="https://todoist.com/prefs/integrations">integrations/developer</a>.</p>
 <p>Available commands </p><div class="fragment"><div class="line">todoist-prioritizer --help</div>
 <div class="line">usage: todoist_prioritizer.py [-h] [-a API_TOKEN] [-p1 P1_SIZE] [-p2 P2_SIZE] [-p3 P3_SIZE] [-hh RUN_HOUR]</div>
-<div class="line">                              [-mm RUN_MINUTE] [-nd TASKS_SIZE] [-du DURATION_MIN] [-r] [-d]</div>
+<div class="line">                              [-mm RUN_MINUTE] [-nd TASKS_SIZE] [-du DURATION_MIN] [-p PARENT_PROJECT_ID] [-r] [-d]</div>
 <div class="line"> </div>
 <div class="line">options:</div>
-<div class="line">  -h, --help                     show this help message and exit</div>
-<div class="line">  -a API_TOKEN, --api API_TOKEN  Set api token</div>
-<div class="line">  -p1 P1_SIZE                    Maximum number of P1 tasks</div>
-<div class="line">  -p2 P2_SIZE                    Maximum number of P2 tasks</div>
-<div class="line">  -p3 P3_SIZE                    Maximum number of P3 tasks</div>
-<div class="line">  -hh RUN_HOUR                   The hour to run the script, 24 hour format</div>
-<div class="line">  -mm RUN_MINUTE                 The minute to run the script, 24 hour format</div>
-<div class="line">  -nd TASKS_SIZE                 Number of tasks with no duration to prioritize for today</div>
-<div class="line">  -du DURATION_MIN               Maximum tasks duration in minutes to prioritize for today</div>
-<div class="line">  -r, --reset                    Reset configuration to default values</div>
-<div class="line">  -d, --debug                    Enable debug logging level</div>
+<div class="line">  -h, --help                                        show this help message and exit</div>
+<div class="line">  -a API_TOKEN, --api API_TOKEN                     Set api token</div>
+<div class="line">  -p1 P1_SIZE                                       Maximum number of P1 tasks</div>
+<div class="line">  -p2 P2_SIZE                                       Maximum number of P2 tasks</div>
+<div class="line">  -p3 P3_SIZE                                       Maximum number of P3 tasks</div>
+<div class="line">  -hh RUN_HOUR                                      The hour to run the script, 24 hour format</div>
+<div class="line">  -mm RUN_MINUTE                                    The minute to run the script, 24 hour format</div>
+<div class="line">  -nd TASKS_SIZE                                    Number of tasks with no duration to prioritize for today</div>
+<div class="line">  -du DURATION_MIN                                  Maximum tasks duration in minutes to prioritize for today</div>
+<div class="line">  -p PARENT_PROJECT_ID, --parent PARENT_PROJECT_ID  If set move oldest P1 task to this parent project</div>
+<div class="line">  -r, --reset                                       Reset configuration to default values</div>
+<div class="line">  -d, --debug                                       Enable debug logging level</div>
 </div><!-- fragment --><p>Example usage <br  />
 </p><ul>
 <li>Windows <div class="fragment"><div class="line">./todoist-prioritizer.exe -a 3x4mpl34p1k3y -h 00 -m 00 -d</div>
@@ -217,7 +219,15 @@ API token</h3>
 <p>Todoist API token is stored using <a href="https://github.com/jaraco/keyring">keyring</a> library. The library chooses backend to use depending on the OS.</p>
 <h3><a class="anchor" id="autotoc_md8"></a>
 Todoist API Python Client</h3>
-<p>The script uses official <a href="https://github.com/Doist/todoist-api-python">todoist-api-python</a> client for connection to Todoist API. Communication between the script and Todoist API is assumed to be secure. </p>
+<p>The script uses official <a href="https://github.com/Doist/todoist-api-python">todoist-api-python</a> client for connection to Todoist API. Communication between the script and Todoist API is assumed to be secure.</p>
+<h1><a class="anchor" id="autotoc_md9"></a>
+Releases</h1>
+<p>Instructions for creating a new release.</p>
+<ol type="1">
+<li>Update <code>current_version</code> in <code><a class="el" href="todoist__prioritizer_8py.html">src/todoist_prioritizer.py</a></code></li>
+<li>Update <code>PROJECT_NUMBER</code> in <code>Doxyfile</code></li>
+<li>Create a new PR release and add a tag <code>git tag vx.x.x</code> &amp; <code>git push origin vx.x.x</code> </li>
+</ol>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
