@@ -107,6 +107,12 @@ class CommandLineParser:
             action="store_true",
             help="Enable debug logging level",
         )
+        self.parser.add_argument(
+            "--min-age", type=int, metavar="MIN_AGE_DAYS", help="Minimum task age in days to be eligible for promotion"
+        )
+        self.parser.add_argument(
+            "--max-age", type=int, metavar="MAX_AGE_DAYS", help="Maximum task age in days to be eligible for promotion"
+        )
 
     def parse_args(self, input: bool = False):
         """
@@ -162,6 +168,14 @@ class CommandLineParser:
             config.set("USER", "parent_id", str(self.args.parent))
             with open(ini_path, "w") as configfile:
                 config.write(configfile)
+        if self.args.min_age is not None:
+            config.set("USER", "min_task_age", str(self.args.min_age))
+            with open(ini_path, "w") as configfile:
+                config.write(configfile)
+        if self.args.max_age is not None:
+            config.set("USER", "max_task_age", str(self.args.max_age))
+            with open(ini_path, "w") as configfile:
+                config.write(configfile)
         if self.args.reset:
             config.set("USER", "p1_tasks", config.get("DEFAULT", "p1_tasks"))
             config.set("USER", "p2_tasks", config.get("DEFAULT", "p2_tasks"))
@@ -172,6 +186,8 @@ class CommandLineParser:
                 "USER", "number_of_tasks", config.get("DEFAULT", "number_of_tasks")
             )
             config.set("USER", "task_duration", config.get("DEFAULT", "task_duration"))
+            config.set("USER", "min_task_age", config.get("DEFAULT", "min_task_age"))
+            config.set("USER", "max_task_age", config.get("DEFAULT", "max_task_age"))
             with open(ini_path, "w") as configfile:
                 config.write(configfile)
             logging.info("Reset")

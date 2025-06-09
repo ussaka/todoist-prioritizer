@@ -228,6 +228,28 @@ def fill_today_tasks(
     return task_reschedule_time
 
 
+def filter_tasks_by_age(tasks, min_age, max_age):
+    """
+    Filter tasks by age in days (inclusive).
+    """
+    now = datetime.datetime.now(datetime.timezone.utc)
+    filtered = []
+    for task in tasks:
+        try:
+            created = task.created_at
+            if isinstance(created, str):
+                try:
+                    created = datetime.datetime.fromisoformat(created.replace('Z', '+00:00'))
+                except Exception:
+                    continue
+            age_days = (now - created).days
+            if min_age <= age_days <= max_age:
+                filtered.append(task)
+        except Exception:
+            continue
+    return filtered
+
+
 if __name__ == "__main__":
     # Create the command line parser
     cmd = CommandLineParser()
@@ -256,15 +278,19 @@ if __name__ == "__main__":
     while True:
         current_time = datetime.datetime.now().time()
         run_time = datetime.time(run_hour, run_minute)
+        min_age = int(config.get("USER", "min_task_age"))
+        max_age = int(config.get("USER", "max_task_age"))
         if (
             current_time.hour == run_time.hour
             and current_time.minute == run_time.minute
         ):
             # Prioritize the tasks
             p1_tasks = get_tasks("P1")
+            p1_tasks = filter_tasks_by_age(p1_tasks, min_age, max_age)
             p1_tasks_size = len(p1_tasks)
             p1_tasks_target_size = int(config.get("USER", "p1_tasks"))
             p2_tasks = sort_tasks_date(get_tasks("P2"))
+            p2_tasks = filter_tasks_by_age(p2_tasks, min_age, max_age)
             if p1_tasks_size < p1_tasks_target_size:
                 logging.info(
                     f"You have {p1_tasks_size}/{p1_tasks_target_size} P1 tasks"
@@ -272,9 +298,11 @@ if __name__ == "__main__":
                 prioritize_tasks(p2_tasks, 4, p1_tasks_target_size - p1_tasks_size)
 
             p2_tasks = get_tasks("P2")
+            p2_tasks = filter_tasks_by_age(p2_tasks, min_age, max_age)
             p2_tasks_size = len(p2_tasks)
             p2_tasks_target_size = int(config.get("USER", "p2_tasks"))
             p3_tasks = sort_tasks_date(get_tasks("P3"))
+            p3_tasks = filter_tasks_by_age(p3_tasks, min_age, max_age)
             if p2_tasks_size < p2_tasks_target_size:
                 logging.info(
                     f"You have {p2_tasks_size}/{p2_tasks_target_size} P2 tasks"
@@ -282,9 +310,11 @@ if __name__ == "__main__":
                 prioritize_tasks(p3_tasks, 3, p2_tasks_target_size - p2_tasks_size)
 
             p3_tasks = get_tasks("P3")
+            p3_tasks = filter_tasks_by_age(p3_tasks, min_age, max_age)
             p3_tasks_size = len(p3_tasks)
             p3_tasks_target_size = int(config.get("USER", "p3_tasks"))
             p4_tasks = sort_tasks_date(get_tasks("P4"))
+            p4_tasks = filter_tasks_by_age(p4_tasks, min_age, max_age)
             if p3_tasks_size < p3_tasks_target_size:
                 logging.info(
                     f"You have {p3_tasks_size}/{p3_tasks_target_size} P3 tasks"

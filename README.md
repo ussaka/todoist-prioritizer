@@ -21,6 +21,7 @@ The todoist-prioritizer is a Python script designed to manage Todoist tasks prio
 - Specify the number of tasks desired for each priority level (P1 to P3)
 - When task count at specific priority level falls below the user's preferences, the script automatically promotes tasks from lower priority levels to higher ones, starting from the oldest task
   - E.g. If P1 level has 3/5 tasks then promote tasks from P2 to P1 starting from the oldest task in P2. After that, if P2 has less tasks than desired promote tasks from P3 to it and so on...
+- **Set minimum and maximum task age (in days) for tasks eligible for automatic priority promotion**
 - Specify number of tasks with no duration and max. duration for tasks to fill for today view
 - The script will fill tasks for today view until user set requirements are met
 - The script runs once a day at a time specified by the user
@@ -46,6 +47,8 @@ options:
   -nd TASKS_SIZE                                    Number of tasks with no duration to prioritize for today
   -du DURATION_MIN                                  Maximum tasks duration in minutes to prioritize for today
   -p PARENT_PROJECT_ID, --parent PARENT_PROJECT_ID  If set move oldest P1 task to this parent project
+  --min-age MIN_AGE_DAYS                            Minimum task age in days to be eligible for promotion
+  --max-age MAX_AGE_DAYS                            Maximum task age in days to be eligible for promotion
   -r, --reset                                       Reset configuration to default values
   -d, --debug                                       Enable debug logging level
 ```
