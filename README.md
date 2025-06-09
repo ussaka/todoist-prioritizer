@@ -85,3 +85,10 @@ Todoist API token is stored using [keyring](https://github.com/jaraco/keyring) l
 
 ### Todoist API Python Client
 The script uses official [todoist-api-python](https://github.com/Doist/todoist-api-python) client for connection to Todoist API. Communication between the script and Todoist API is assumed to be secure.
+
+# Releases
+Instructions for creating a new release.
+
+1. Update `current_version` in `src/todoist_prioritizer.py`
+2. Update `PROJECT_NUMBER` in `Doxyfile`
+3. Create a new PR release and add a tag `git tag vx.x.x` & `git push origin vx.x.x`
