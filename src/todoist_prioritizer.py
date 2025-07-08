@@ -143,7 +143,7 @@ def move_task_to_a_parent(task: object, parent_id: str) -> None:
             task_id=task.id,
             project_id=parent_id,
         )
-        logging.info(f"Moved {task.content} to today\n")
+        logging.info(f"Moved {task.content} to project: '{parent_id}'\n")
     except Exception as error:
         logging.error(error)
         sys.exit(1)
@@ -261,6 +261,7 @@ if __name__ == "__main__":
             and current_time.minute == run_time.minute
         ):
             # Prioritize the tasks
+            logging.info("\nPrioritizing P1 tasks...\n")
             p1_tasks = get_tasks("P1")
             p1_tasks_size = len(p1_tasks)
             p1_tasks_target_size = int(config.get("USER", "p1_tasks"))
@@ -271,6 +272,7 @@ if __name__ == "__main__":
                 )
                 prioritize_tasks(p2_tasks, 4, p1_tasks_target_size - p1_tasks_size)
 
+            logging.info("\nPrioritizing P2 tasks...\n")
             p2_tasks = get_tasks("P2")
             p2_tasks_size = len(p2_tasks)
             p2_tasks_target_size = int(config.get("USER", "p2_tasks"))
@@ -281,6 +283,7 @@ if __name__ == "__main__":
                 )
                 prioritize_tasks(p3_tasks, 3, p2_tasks_target_size - p2_tasks_size)
 
+            logging.info("\nPrioritizing P3 tasks...\n")
             p3_tasks = get_tasks("P3")
             p3_tasks_size = len(p3_tasks)
             p3_tasks_target_size = int(config.get("USER", "p3_tasks"))
@@ -292,11 +295,11 @@ if __name__ == "__main__":
                 prioritize_tasks(p4_tasks, 2, p3_tasks_target_size - p3_tasks_size)
 
             # Fill tasks for today
+            logging.info("\nFilling tasks for today...\n")
             reschedule_starting_time = datetime.datetime.now()
             reschedule_starting_time = reschedule_starting_time.replace(
                 hour=18, minute=0
             )
-
             reschedule_starting_time = fill_today_tasks(
                 p1_tasks, reschedule_starting_time
             )
@@ -313,6 +316,9 @@ if __name__ == "__main__":
             # Move the first P1 task to a parent
             parent_id = config.get("USER", "parent_id")
             if parent_id != "None" and p1_tasks:
+                logging.info(
+                    f"\nMoving the first P1 task to a parent (id={parent_id})\n"
+                )
                 move_task_to_a_parent(p1_tasks[0], parent_id)
 
             check_for_updates()
