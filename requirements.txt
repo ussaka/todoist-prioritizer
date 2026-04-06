@@ -1,4 +1,4 @@
 keyring==25.7.0
 requests==2.33.0
 todoist-api-python==4.0.0
-tzdata==2025.3
+tzdata==2026.1
